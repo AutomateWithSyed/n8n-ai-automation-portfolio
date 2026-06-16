@@ -1,0 +1,158 @@
+{
+  "name": "Lead Collection Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Lead Inquiry Form",
+        "formDescription": "Please fill in your details and we will get back to you shortly.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Full Name?"
+            },
+            {
+              "fieldLabel": "Email Address"
+            },
+            {
+              "fieldLabel": "Phone Number?"
+            },
+            {
+              "fieldLabel": "What do you need help with?"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "9430571d-d8ab-420d-b2a7-fdde542189ce",
+      "name": "On form submission",
+      "webhookId": "ee302035-86d5-4e0e-a70f-aef6d80992e1"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1XtcZUJfNDF5uqDUuhA1nnsd_sFM8vV1DMJFS7JXbY8M",
+          "mode": "list",
+          "cachedResultName": "Lead Connection",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1XtcZUJfNDF5uqDUuhA1nnsd_sFM8vV1DMJFS7JXbY8M/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1XtcZUJfNDF5uqDUuhA1nnsd_sFM8vV1DMJFS7JXbY8M/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Full Name": "={{ $json['Full Name?'] }}",
+            "Email Address": "={{ $json['Email Address'] }}",
+            "Phone Number": "={{ $json['Phone Number?'] }}",
+            "What do you need help with?": "={{ $json['What do you need help with?'] }}",
+            "Submitted At": "={{ $json.submittedAt }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Full Name",
+              "displayName": "Full Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email Address",
+              "displayName": "Email Address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "What do you need help with?",
+              "displayName": "What do you need help with?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Submitted At",
+              "displayName": "Submitted At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        0
+      ],
+      "id": "0c43caa7-d3e9-4d9f-85cc-057ad298993a",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "VUHCD6UjUEfUSb0o",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "f081ae7c-9e86-4f67-b124-ee062a5275de",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5a6e4a7606fb3273c35cb7039531598a44645aea2e7f47224026cfc330811cb7"
+  },
+  "nodeGroups": [],
+  "id": "XOI5UsvEGG9q3per",
+  "tags": []
+}

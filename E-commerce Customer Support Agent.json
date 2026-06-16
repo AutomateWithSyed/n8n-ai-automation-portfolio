@@ -1,0 +1,113 @@
+{
+  "name": "E-commerce Customer Support Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "7bc6ff3f-4a0e-495a-b0b7-b60fedf1a70e",
+      "name": "When chat message received",
+      "webhookId": "29c7260e-7824-45ba-8fa8-215bba075964"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a customer support agent for an e-commerce store. Your name is \"Alex\". You are friendly, professional, and helpful. You only answer questions related to:\n- Order tracking\n- Product information\n- Returns and refunds\n- Shipping questions\n\nIf someone asks about anything outside these topics, politely say it's outside your scope and bring the conversation back to how you can help them with their order or products.\n\nAlways end your responses with \"Is there anything else I can help you with today?\""
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "84654ae5-7d45-4e92-b965-3380affd8312",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        80,
+        208
+      ],
+      "id": "455c3a08-4416-4326-b363-0b59693b006e",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "W8Rgf150qeaesIvn",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        224,
+        208
+      ],
+      "id": "3f53cfaa-6834-426a-92a3-704c5d302dd1",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "58068efe-cdae-48b1-bc16-56fb2ae39c92",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5a6e4a7606fb3273c35cb7039531598a44645aea2e7f47224026cfc330811cb7"
+  },
+  "nodeGroups": [],
+  "id": "VrFmuY87opZbXnvy",
+  "tags": []
+}
